@@ -66,3 +66,40 @@ sequence. So when we map these markers, they will be very near, but not
 exactly at, these positions.
 
 ## Initial analysis
+
+  - Load raw data from the [3 files](#files) previously described.
+
+<!-- end list -->
+
+``` r
+raw <- load_data(fasta = "data/HaplotypeAllele.fasta", 
+                 hap_geno = "data/hap_genotype",
+                 count_mat = "data/readCountMatrixFile")
+```
+
+  - Extract marker names and drop their “repeat ID”, `#X`.
+
+<!-- end list -->
+
+``` r
+marker_names <- names(raw$fasta)
+marker_names_no_repeats <- lapply(marker_names, function(x) gsub("#.*", "", x))
+
+length(marker_names_no_repeats) # 984030
+length(unique(marker_names_no_repeats)) # 2055
+```
+
+  - *Something that might not make sense …*
+
+<!-- end list -->
+
+``` r
+for (loc in raw$hap_geno$Locus) {
+  repeats_idx <- which(marker_names_no_repeats == loc)
+  repeats <- raw$fasta[repeats_idx]
+  repeats_seq <- lapply(repeats, get_seq)
+  
+  count_mat_idx <- which(loc == names(raw$count_mat))
+  count_mat_sub <- raw$count_mat[count_mat_idx]
+}
+```

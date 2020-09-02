@@ -63,3 +63,34 @@ So, if we wanted to know the DNA sequence of this marker, we would look up haplo
 One other thing to note that is very important.  the marker name, `rh_ch1_10143990` stands for rhampseq, chromosome 1, position 10143990.  This position information does not indicate the position of the polymorphism detected at this marker, it is the position of the primer sequence.  So when we map these markers, they will be very near, but not exactly at, these positions.  
 
 ## Initial analysis
+
+- Load raw data from the [3 files](#files) previously described.
+
+```{r load-raw, eval = FALSE}
+raw <- load_data(fasta = "data/HaplotypeAllele.fasta", 
+                 hap_geno = "data/hap_genotype",
+                 count_mat = "data/readCountMatrixFile")
+```
+
+- Extract marker names and drop their "repeat ID", `#X`.
+
+```{r extract-markers, eval = FALSE}
+marker_names <- names(raw$fasta)
+marker_names_no_repeats <- lapply(marker_names, function(x) gsub("#.*", "", x))
+
+length(marker_names_no_repeats) # 984030
+length(unique(marker_names_no_repeats)) # 2055
+```
+
+- _Something that might not make sense ..._
+
+```{r something-random, eval = FALSE}
+for (loc in raw$hap_geno$Locus) {
+  repeats_idx <- which(marker_names_no_repeats == loc)
+  repeats <- raw$fasta[repeats_idx]
+  repeats_seq <- lapply(repeats, get_seq)
+  
+  count_mat_idx <- which(loc == names(raw$count_mat))
+  count_mat_sub <- raw$count_mat[count_mat_idx]
+}
+```
