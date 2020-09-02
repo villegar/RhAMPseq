@@ -6,16 +6,16 @@ raw <- load_data(fasta = "data/HaplotypeAllele.fasta",
                  hap_geno = "data/hap_genotype",
                  count_mat = "data/readCountMatrixFile")
 
-fasta_names <- names(raw$fasta)
+marker_names <- names(raw$fasta)
 # tictoc::tic("lapply")
-fasta_names_no_repeats <- lapply(fasta_names, function(x) gsub("#.*", "", x))
+marker_names_no_repeats <- lapply(marker_names, function(x) gsub("#.*", "", x))
 # tictoc::toc()
 
-length(fasta_names_no_repeats)
-length(unique(fasta_names_no_repeats))
+length(marker_names_no_repeats)
+length(unique(marker_names_no_repeats))
 
 for (loc in raw$hap_geno$Locus) {
-  repeats_idx <- which(fasta_names_no_repeats == loc)
+  repeats_idx <- which(marker_names_no_repeats == loc)
   repeats <- raw$fasta[repeats_idx]
   repeats_seq <- lapply(repeats, get_seq)
   
