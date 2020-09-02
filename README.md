@@ -77,7 +77,8 @@ raw <- load_data(fasta = "data/HaplotypeAllele.fasta",
                  count_mat = "data/readCountMatrixFile")
 ```
 
-  - Extract marker names and drop their “repeat ID”, `#X`.
+  - Extract marker names and drop their “repeat ID”, `#X`. e.g.
+    `rhMAS_5GT_cons95#1` -\> `rhMAS_5GT_cons95`
 
 <!-- end list -->
 
