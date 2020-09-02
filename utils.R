@@ -39,3 +39,18 @@ get_seq <- function(raw, upper = TRUE) {
   seq <- paste0(unname(unlist(raw)), collapse = "")
   return(ifelse(upper, toupper(seq), seq))
 }
+
+
+#' Read columns from MS Excel file
+#'
+#' @param filename filename, absolute or relative paths are valid
+#' @param columns vector with the columns names
+#'
+#' @return table with the requested columns
+# @export
+#'
+#' @examples
+#' read_excel_col("data/Rhampseq_populations.xlsx", "A")
+read_excel_col <- function(filename, columns) {
+  return(readxl::read_excel(filename, range = readxl::cell_cols(columns)))
+}
