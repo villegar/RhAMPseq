@@ -34,3 +34,8 @@ load_data <- function(fasta = NULL, hap_geno = NULL, count_mat = NULL) {
   
   return(list(fasta = fasta_data, hap_geno = hap_data, count_mat = count_mat_data))
 }
+
+get_seq <- function(raw, upper = TRUE) {
+  seq <- paste0(unname(unlist(raw)), collapse = "")
+  return(ifelse(upper, toupper(seq), seq))
+}
