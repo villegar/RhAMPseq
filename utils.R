@@ -32,5 +32,5 @@ load_data <- function(fasta = NULL, hap_geno = NULL, count_mat = NULL) {
     count_mat_data <- read.table(count_mat, header = TRUE) 
   }
   
-  return(list(fasta_data, hap_data, count_mat_data))
+  return(list(fasta = fasta_data, hap_geno = hap_data, count_mat = count_mat_data))
 }
