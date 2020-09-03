@@ -29,9 +29,9 @@ Analysis of rhAmpSeq data.
 
 ### Example
 
-| Locus              | Haplotypes                                                                        | blank\_\_vDNAfen551A01\_A01 | X160\_271\_303\_\_vDNAfen551A01\_A02 | X160\_271\_311\_\_vDNAfen551A01\_A03 |
-| :----------------- | :-------------------------------------------------------------------------------- | :-------------------------- | :----------------------------------- | :----------------------------------- |
-| rh\_chr1\_10143990 | 2(0.37);4(0.16);9(0.10);5(0.09);1(0.07);3(0.07);8(0.05);13(0.04);6(0.03);7(0.03); | ./.:0                       | 4/2:34,24                            | 2/2:71                               |
+| Locus              | Haplotypes                                                                        | blank\_\_vDNAfen551A01\_A01 | 160\_271\_303\_\_vDNAfen551A01\_A02 | 160\_271\_311\_\_vDNAfen551A01\_A03 |
+| :----------------- | :-------------------------------------------------------------------------------- | :-------------------------- | :---------------------------------- | :---------------------------------- |
+| rh\_chr1\_10143990 | 2(0.37);4(0.16);9(0.10);5(0.09);1(0.07);3(0.07);8(0.05);13(0.04);6(0.03);7(0.03); | ./.:0                       | 4/2:34,24                           | 2/2:71                              |
 
 where:
 
@@ -95,12 +95,15 @@ length(unique(marker_names_no_repeats)) # 2055
 <!-- end list -->
 
 ``` r
+sum_stats <- data.frame(marker = NA, non_zero = NA)
 for (loc in raw$hap_geno$Locus) {
-  repeats_idx <- which(marker_names_no_repeats == loc)
-  repeats <- raw$fasta[repeats_idx]
-  repeats_seq <- lapply(repeats, get_seq)
+  # repeats_idx <- which(marker_names_no_repeats == loc)
+  # repeats <- raw$fasta[repeats_idx]
+  # repeats_seq <- lapply(repeats, get_seq)
   
   count_mat_idx <- which(loc == names(raw$count_mat))
   count_mat_sub <- raw$count_mat[count_mat_idx]
+  sum_stats <- rbind(sum_stats, c(loc, length(which(count_mat_sub > 0))))
 }
+sum_stats[1, ] <- NULL
 ```
