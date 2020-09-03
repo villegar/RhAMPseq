@@ -59,16 +59,18 @@ read_excel_col <- function(filename, columns) {
 #'
 #' @param hap haplotypes data with format: X/Y:n,m
 #' @param genotypes genotypes to assign based on homozygosity, 
-#' c(Homozygous, Heterozygous) for NULL haplotypes [./.:0] assign NA
+#' c(Homozygous, Heterozygous, NULL); NULL haplotypes [./.:0]
 #'
 #' @return genotype
 # @export
 #'
 #' @examples
-#' get_geno("7/1:67,52")
-get_geno <- function(hap, genotypes = c("NN", "NP")) {
+#' get_geno("./.:0")
+#' get_geno("4/2:34,24")
+#' get_geno("2/2:71")
+get_geno <- function(hap, genotypes = c("NN", "NP", NA)) {
   if(hap == "./.:0")
-    return(NA)
+    return(genotypes[3])
   # Split haplotypes and read count
   hap_arr <- unlist(strsplit(hap, ":"))
   # Extract haplotypes
