@@ -1,5 +1,8 @@
-libs <- c("hexSticker",
+libs <- c("doParallel",
+          "foreach",
+          "hexSticker",
           "knitr", 
+          "parallel",
           "readxl", 
           "seqinr",
           "tictoc") 
