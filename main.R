@@ -1,7 +1,9 @@
 # Create Hex R-like logo
 # hex_logo(dpi = 500, h_fill = "#4F0924", output = "figures/logo.png")
 
-# Load raw data
+################################################################################
+################################ Load raw data #################################
+################################################################################
 raw <- load_data(fasta = "data/HaplotypeAllele.fasta", 
                  hap_geno = "data/hap_genotype",
                  count_mat = "data/readCountMatrixFile")
@@ -57,7 +59,7 @@ map_t <- t(map)
 colnames(map_t) <- col(map)
 rownames(map_t) <- gsub("X*", "", rownames(map_t))
 write.csv(map_t, "data/pseudomap.csv")
-# map_t[1:5,1:5]
+write.csv(map_t[1:5,1:5], "data/pseudomap-sample.csv")
 
 # tictoc::tic("Serial") # ~21.387 sec
 # map_s <- data.frame(Locus = locus)
