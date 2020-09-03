@@ -67,15 +67,81 @@ exactly at, these positions.
 
 ## Initial analysis
 
-  - Load raw data from the [3 files](#files) previously described.
+### Raw data
 
-<!-- end list -->
+Load raw data from the [3 files](#files) previously described.
 
 ``` r
 raw <- load_data(fasta = "data/HaplotypeAllele.fasta", 
                  hap_geno = "data/hap_genotype",
                  count_mat = "data/readCountMatrixFile")
 ```
+
+### Haplotypes
+
+``` r
+# Load haplotypes for mapping family
+mapping_family <- read_excel_col("data/Rhampseq_populations.xlsx", "A")
+mapping_family_short <- unlist(lapply(mapping_family, 
+                                      function(x) gsub("__.*", "", x)))
+mapping_family_short <- unique(mapping_family_short)
+
+## Extract genotypes from the hap_genotype file
+hap_geno_names <- names(raw$hap_geno)
+hap_geno_names_blank <- hap_geno_names[grepl("*blank*", hap_geno_names)]
+## Drop "blank" genotypes
+# hap_geno_names <- hap_geno_names[!grepl("*blank*", hap_geno_names)]
+## Trim 'X' from genotypes [added when importing the data]
+hap_geno_names <- gsub("X*", "", hap_geno_names)
+## Further trimming of genotypes: 160_271_001__vDNAlon499A03_A01 -> 160_271_001
+hap_geno_names <- unlist(lapply(hap_geno_names, 
+                                function(x) gsub("__.*", "", x)))
+
+## Lookup for mapping_family genotypes
+hap_geno_names_idx <- hap_geno_names %in% mapping_family_short
+## Extract matching genotypes
+hap_geno_names_sub <- hap_geno_names[hap_geno_names_idx]
+hap_geno_sub <- raw$hap_geno[hap_geno_names_idx]
+
+## Extract locus data
+locus <- raw$hap_geno$Locus
+
+# Start parallel backend
+tictoc::tic("Parallel") # ~12.719 sec (2 CPUs); ~7.923 sec (4 CPUs)
+cores <- parallel::detectCores() - 1
+cpus <- ifelse(cores > 2, 2, 1)
+cl <- parallel::makeCluster(cpus, setup_strategy = "sequential")
+doParallel::registerDoParallel(cl)
+
+# Load binary operator for backend
+`%dopar%` <- foreach::`%dopar%`
+map <- foreach::foreach(i = 1:length(hap_geno_sub), 
+                        .combine = cbind) %dopar% {
+                          unlist(lapply(hap_geno_sub[, i], get_geno))
+                        }
+parallel::stopCluster(cl) # Stop cluster
+tictoc::toc()
+colnames(map) <- names(hap_geno_sub)
+rownames(map) <- locus
+# map <- cbind(Locus = locus, map)
+map_t <- t(map)
+colnames(map_t) <- col(map)
+rownames(map_t) <- gsub("X*", "", rownames(map_t))
+write.csv(map_t, "data/pseudomap.csv")
+# map_t[1:5,1:5]
+```
+
+#### Pseudo-genetic map sample (`map_t`)
+
+| X                                   | rhMAS\_5GT\_cons95 | rhMAS\_SDI\_p2\_AG11\_chr18\_30Mb | rhMAS\_SDI\_p3\_AGL11 | rhMAS\_SDI\_p4\_AGL11 | rhMAS\_5GT\_700 |
+| :---------------------------------- | :----------------- | :-------------------------------- | :-------------------- | :-------------------- | :-------------- |
+| 160\_271\_303\_\_vDNAfen551A01\_A02 | NP                 | NP                                | NP                    | NP                    | NN              |
+| 160\_271\_311\_\_vDNAfen551A01\_A03 | NN                 | NN                                | NP                    | NP                    | NN              |
+| 160\_271\_319\_\_vDNAfen551A01\_A04 | NP                 | NP                                | NN                    | NN                    | NN              |
+| 160\_271\_327\_\_vDNAfen551A01\_A05 | NP                 | NP                                | NP                    | NP                    | NN              |
+| 160\_271\_335\_\_vDNAfen551A01\_A06 | NP                 | NP                                | NP                    | NP                    | NN              |
+
+### Other stuff
 
   - Extract marker names and drop their “repeat ID”, `#X`. e.g.
     `rhMAS_5GT_cons95#1` -\> `rhMAS_5GT_cons95`
@@ -95,7 +161,7 @@ length(unique(marker_names_no_repeats)) # 2055
 <!-- end list -->
 
 ``` r
-sum_stats <- data.frame(marker = NA, non_zero = NA)
+sum_stats <- list() #data.frame(marker = NA, non_zero = NA)
 for (loc in raw$hap_geno$Locus) {
   # repeats_idx <- which(marker_names_no_repeats == loc)
   # repeats <- raw$fasta[repeats_idx]
@@ -103,7 +169,10 @@ for (loc in raw$hap_geno$Locus) {
   
   count_mat_idx <- which(loc == names(raw$count_mat))
   count_mat_sub <- raw$count_mat[count_mat_idx]
-  sum_stats <- rbind(sum_stats, c(loc, length(which(count_mat_sub > 0))))
+  sum_stats[[loc]] <- list(idx = which(count_mat_sub > 0), count = length(unlist(count_mat_sub)))
+  #sum_stats <- rbind(sum_stats, c(loc, length(which(count_mat_sub > 0))))
 }
-sum_stats[1, ] <- NULL
+# sum_stats[1, ] <- NULL
 ```
+
+read.table(“d”)
