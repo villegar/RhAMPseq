@@ -54,3 +54,28 @@ get_seq <- function(raw, upper = TRUE) {
 read_excel_col <- function(filename, columns) {
   return(readxl::read_excel(filename, range = readxl::cell_cols(columns)))
 }
+
+#' Get genotypes from haplotypes
+#'
+#' @param hap haplotypes data with format: X/Y:n,m
+#' @param genotypes genotypes to assign based on homozygosity, 
+#' c(Homozygous, Heterozygous) for NULL haplotypes [./.:0] assign NA
+#'
+#' @return genotype
+# @export
+#'
+#' @examples
+#' get_geno("7/1:67,52")
+get_geno <- function(hap, genotypes = c("NN", "NP")) {
+  if(hap == "./.:0")
+    return(NA)
+  # Split haplotypes and read count
+  hap_arr <- unlist(strsplit(hap, ":"))
+  # Extract haplotypes
+  hap_names <- unlist(strsplit(hap_arr[1], "/"))
+  ## Compare if variance = 0 (Homozygous)
+  return(ifelse(var(hap_names) == 0, genotypes[1], genotypes[2]))
+  
+  # Extract read count
+  # unlist(strsplit(hap_arr[2], ","))
+}
