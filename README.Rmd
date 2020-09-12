@@ -23,6 +23,22 @@ filename <- function(name, color = "#03045e", background = "#E5F1FF") {
 # RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/figures/logo.png" alt="logo" align="right" height=200px/>
 Analysis of rhAmpSeq data.
 
+## Installation
+
+<!-- You can install the released version of RhAMPseq from [CRAN](https://CRAN.R-project.org) with: -->
+
+<!-- ``` r -->
+<!-- install.packages("RhAMPseq") -->
+<!-- ``` -->
+
+<!-- And the development version from [GitHub](https://github.com/) with: -->
+
+You can install the development version from [GitHub](https://github.com/) with:
+``` r
+# install.packages(c("hexSticker", "remotes")
+remotes::install_github("villegar/RhAMPseq")
+```
+
 ## Data description
 **Author:** J.L.
 
@@ -160,6 +176,4 @@ for (loc in raw$hap_geno$Locus) {
 }
 # sum_stats[1, ] <- NULL
 ```
-
-read.table("d")
 
