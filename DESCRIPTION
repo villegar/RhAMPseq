@@ -1,0 +1,31 @@
+Package: RhAMPseq
+Title: rhAmpSeq data analysis pipeline
+Version: 0.0.1
+Authors@R: 
+    person(given = "Roberto",
+           family = "Villegas-Diaz",
+           role = c("aut", "cre"),
+           email = "villegas.roberto@hotmail.com",
+           comment = c(ORCID = "0000-0001-5036-8661"))
+Description: Toolkit for rhAmpSeq data analysis.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports:
+    doParallel,
+    foreach,
+    parallel,
+    readxl,
+    seqinr,
+    tictoc
+Suggests:
+    badger,
+    hexSticker,
+    knitr,
+    kableExtra,
+    rmarkdown,
+    testthat
+Depends: 
+    R (>= 3.6)
