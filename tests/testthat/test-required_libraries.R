@@ -7,7 +7,7 @@ test_that("check libraries function works", {
             "readxl", 
             "seqinr",
             "tictoc")
-  if(!require("tictoc", character.only = TRUE)) {
+  if(require("tictoc", character.only = TRUE)) {
     remove.packages("tictoc")
   }
   check_libs()
