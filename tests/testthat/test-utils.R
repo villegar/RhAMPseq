@@ -49,3 +49,24 @@ test_that("load data works", {
     expect_false(file.exists(f))
   }
 })
+
+test_that("get sequence works", {
+  set.seed(123)
+  # Generate random list of DNA bases
+  seq_list <- list(c("A", "C", "G", "T")[sample(1:4, 100, TRUE)])
+  expect_equal(get_seq(seq_list), paste0(unlist(seq_list), collapse = ""))
+  # Return lower case sequence
+  expect_equal(get_seq(seq_list, FALSE), 
+               tolower(paste0(unlist(seq_list), collapse = "")))
+})
+
+test_that("read Excel column works", {
+  # Create test Excel data
+  excel_data <- data.frame(A = 1:10,
+                           B = NA,
+                           C = letters[1:10])
+  xlsx::write.xlsx(excel_data, "test.xls", row.names = FALSE)
+  col_data <- read_excel_col("test.xls", c("A"))
+  expect_equal(nrow(col_data), 10)
+  expect_equal(col_data$A, 1:10)
+})
