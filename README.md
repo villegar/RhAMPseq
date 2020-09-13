@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/figures/logo.png" alt="logo" align="right" height=200px/>
+# RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
 
 Analysis of rhAmpSeq
 data.
