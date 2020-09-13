@@ -79,3 +79,10 @@ test_that("read Excel column works", {
   file.remove("test.xls")
   expect_false(file.exists("test.xls"))
 })
+
+test_that("get genotype works", {
+  expect_true(is.na(get_geno("./.:0")))
+  expect_equal(get_geno("4/2:34,24"), "NP")
+  expect_equal(get_geno("2/2:71"), "NN")
+  expect_error(get_geno(NULL))
+})
