@@ -66,7 +66,16 @@ test_that("read Excel column works", {
                            B = NA,
                            C = letters[1:10])
   xlsx::write.xlsx(excel_data, "test.xls", row.names = FALSE)
+  # Test that the Excel file was created
+  expect_true(file.exists("test.xls"))
+  expect_false(dir.exists("test.xls"))
+  expect_gt(file.size("test.xls"), 0)
+  
   col_data <- read_excel_col("test.xls", c("A"))
   expect_equal(nrow(col_data), 10)
   expect_equal(col_data$A, 1:10)
+  
+  # Delete test Excel file
+  file.remove("test.xls")
+  expect_false(file.exists("test.xls"))
 })
