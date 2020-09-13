@@ -114,7 +114,7 @@ read_excel_col <- function(filename, columns) {
 #' c(Homozygous, Heterozygous, NULL); NULL haplotypes [./.:0]
 #'
 #' @return genotype
-# @export
+#' @export
 #'
 #' @examples
 #' get_geno("./.:0")
