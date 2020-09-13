@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
+# RhAMPseq: <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
 
 Analysis of rhAmpSeq data.
 
@@ -9,6 +9,8 @@ Analysis of rhAmpSeq data.
 
 [![R build
 status](https://github.com/villegar/RhAMPseq/workflows/R-CMD-check/badge.svg)](https://github.com/villegar/RhAMPseq/actions)
+[![](https://img.shields.io/badge/devel%20version-0.0.1-blue.svg)](https://github.com/villegar/MetaPipe)
+[![](https://codecov.io/gh/villegar/RhAMPseq/branch/master/graph/badge.svg)](https://codecov.io/gh/villegar/RhAMPseq)
 <!-- badges: end -->
 
 ## Installation

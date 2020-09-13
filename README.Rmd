@@ -20,12 +20,14 @@ filename <- function(name, color = "#03045e", background = "#E5F1FF") {
                 "'>", name, "</span>"))
 }
 ```
-# RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
+# RhAMPseq: <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
 Analysis of rhAmpSeq data.
 
 <!-- badges: start -->
-  [![R build status](https://github.com/villegar/RhAMPseq/workflows/R-CMD-check/badge.svg)](https://github.com/villegar/RhAMPseq/actions)
-  <!-- badges: end -->
+[![R build status](https://github.com/villegar/RhAMPseq/workflows/R-CMD-check/badge.svg)](https://github.com/villegar/RhAMPseq/actions)
+`r badger::badge_devel("villegar/MetaPipe", "blue")`
+`r badger::badge_codecov("villegar/RhAMPseq")`
+<!-- badges: end -->
   
 ## Installation
 
