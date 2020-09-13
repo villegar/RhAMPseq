@@ -20,8 +20,8 @@ filename <- function(name, color = "#03045e", background = "#E5F1FF") {
                 "'>", name, "</span>"))
 }
 ```
-# RhAMPseq: <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
-Analysis of rhAmpSeq data.
+# RhAMPseq: Analysis of rhAmpSeq data <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
+<!-- Analysis of rhAmpSeq data. -->
 
 <!-- badges: start -->
 [![R build status](https://github.com/villegar/RhAMPseq/workflows/R-CMD-check/badge.svg)](https://github.com/villegar/RhAMPseq/actions)
