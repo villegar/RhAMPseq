@@ -36,6 +36,21 @@ hex_logo <- function(subplot = "images/slope.png",
                       filename = output)
 }
 
+#' Load rhAmpSeq raw data in different formats
+#'
+#' @param fasta FASTA data 
+#' @param hap_geno genotypes data
+#' @param count_mat count matrix
+#'
+#' @return list of each loaded file
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' load_data(fasta = "data/HaplotypeAllele.fasta",
+#'           hap_geno = "data/hap_genotype",
+#'           count_mat = "data/readCountMatrixFile")
+#' }
 load_data <- function(fasta = NULL, hap_geno = NULL, count_mat = NULL) {
   fasta_data <- NULL
   hap_data <- NULL
@@ -56,9 +71,23 @@ load_data <- function(fasta = NULL, hap_geno = NULL, count_mat = NULL) {
   return(list(fasta = fasta_data, hap_geno = hap_data, count_mat = count_mat_data))
 }
 
+#' Combine list of bases
+#'
+#' @param raw list of bases
+#' @param upper flag on whether the sequence should be returned in all caps
+#'
+#' @return string of bases
+#' @export
+#'
+#' @examples
+#' set.seed(123)
+#' # Generate random list of DNA bases
+#' seq_list <- list(c("A", "C", "G", "T")[sample(1:4, 100, TRUE)])
+#' get_seq(seq_list) 
+#' get_seq(seq_list, FALSE) # Return lower case sequence
 get_seq <- function(raw, upper = TRUE) {
   seq <- paste0(unname(unlist(raw)), collapse = "")
-  return(ifelse(upper, toupper(seq), seq))
+  return(ifelse(upper, toupper(seq), tolower(seq)))
 }
 
 
@@ -71,7 +100,9 @@ get_seq <- function(raw, upper = TRUE) {
 # @export
 #'
 #' @examples
+#' \dontrun{
 #' read_excel_col("data/Rhampseq_populations.xlsx", "A")
+#' }
 read_excel_col <- function(filename, columns) {
   return(readxl::read_excel(filename, range = readxl::cell_cols(columns)))
 }
