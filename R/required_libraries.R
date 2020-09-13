@@ -18,7 +18,6 @@ check_libs <- function() {
   
   out <- lapply(libs, 
                 function(x) {
-                  if (!require(x, character.only = TRUE))
-                    install.packages(x, dependencies = TRUE)
+                  if (!require(x, character.only = TRUE)) install.packages(x, dependencies = TRUE)
                 })
 }
