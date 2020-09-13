@@ -3,8 +3,13 @@
 
 # RhAMPseq <img src="https://raw.githubusercontent.com/villegar/RhAMPseq/master/inst/images/logo.png" alt="logo" align="right" height=200px/>
 
-Analysis of rhAmpSeq
-data.
+Analysis of rhAmpSeq data.
+
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/villegar/RhAMPseq/workflows/R-CMD-check/badge.svg)](https://github.com/villegar/RhAMPseq/actions)
+<!-- badges: end -->
 
 ## Installation
 
