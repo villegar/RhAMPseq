@@ -4,15 +4,15 @@
 ################################################################################
 ################################ Load raw data #################################
 ################################################################################
-raw <- load_data(fasta = "data/HaplotypeAllele.fasta", 
-                 hap_geno = "data/hap_genotype",
-                 count_mat = "data/readCountMatrixFile")
+raw <- RhAMPseq::load_data(fasta = "data/HaplotypeAllele.fasta",
+                           hap_geno = "data/hap_genotype",
+                           count_mat = "data/readCountMatrixFile")
 
 ################################################################################
 ################################## Haplotypes ##################################
 ################################################################################
 ## Load mapping family genotypes
-mapping_family <- read_excel_col("data/Rhampseq_populations.xlsx", "A")
+mapping_family <- RhAMPseq::read_excel_col("data/Rhampseq_populations.xlsx", "A")
 mapping_family_short <- unlist(lapply(mapping_family, 
                                       function(x) gsub("__.*", "", x)))
 mapping_family_short <- unique(mapping_family_short)
