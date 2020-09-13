@@ -1,0 +1,19 @@
+digraph {
+  graph [layout = dot, rankdir = TB]
+  
+  node [shape = rectangle, style = filled, fillcolor = white]
+  rhampseq [label = 'rhAmpSeq']
+  fasta [label = 'HaplotypeAllele.fasta']
+  hap [label = 'hap_genotype']
+  mat [label = 'readCountMatrixFile']
+  
+  # node [shape = circle]
+  fasta_var1 [label = 'Marker Name']
+  fasta_var2 [label = 'Sequence']
+  hap_var1 [label = 'Locus']
+  hap_var2 [label = 'Haplotypes']
+  
+  rhampseq -> {fasta hap mat}
+  fasta -> {fasta_var1 fasta_var2}
+  hap -> {hap_var1 hap_var2}
+}
