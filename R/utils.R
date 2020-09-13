@@ -18,11 +18,11 @@
 #' \dontrun{
 #' hex_logo("inst/images/slope.png", output = "inst/images/logo.png")
 #' }
-hex_logo <- function(subplot = "images/slope.png",
+hex_logo <- function(subplot = system.file("images/slope.png", package = "RhAMPseq"),
                      dpi = 600,
                      h_color = "#000000",
                      h_fill = "#363B74",
-                     output = "images/logo.png",
+                     output = system.file("images/logo.png", package = "RhAMPseq"),
                      p_color = "#EEEEEE",
                      url = "https://github.com/villegar/RhAMPseq",
                      u_size = 1.35) {
