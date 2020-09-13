@@ -26,6 +26,7 @@ Suggests:
     knitr,
     kableExtra,
     rmarkdown,
-    testthat
+    testthat,
+    xlsx
 Depends: 
     R (>= 3.6)
