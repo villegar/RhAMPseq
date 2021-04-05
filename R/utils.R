@@ -61,11 +61,11 @@ load_data <- function(fasta = NULL, hap_geno = NULL, count_mat = NULL) {
   }
   
   if(!is.null(hap_geno)) {
-    hap_data <- read.table(hap_geno, header = TRUE) 
+    hap_data <- readr::read_tsv(hap_geno, col_names = TRUE) 
   }
   
   if(!is.null(count_mat)) {
-    count_mat_data <- read.table(count_mat, header = TRUE) 
+    count_mat_data <- readr::read_tsv(count_mat, col_names = TRUE) 
   }
   
   return(list(fasta = fasta_data, hap_geno = hap_data, count_mat = count_mat_data))
@@ -97,7 +97,7 @@ get_seq <- function(raw, upper = TRUE) {
 #' @param columns vector with the columns names
 #'
 #' @return table with the requested columns
-# @export
+#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -132,4 +132,46 @@ get_geno <- function(hap, genotypes = c("NN", "NP", NA)) {
   
   # Extract read count
   # unlist(strsplit(hap_arr[2], ","))
+}
+
+#' Clean haplotypes
+#' 
+#' Search for haplotypes below a threshold for read length and set them to
+#' \code{missing}.
+#'
+#' @param hap haplotype data with the format: \code{X/Y:n,m}.
+#' @param read_length minimum read length to keep haplotype.
+#' @param missing default value for haplotypes below the \code{read_length}.
+#' 
+#' @return haplotype
+#' @export
+#'
+#' @examples
+#' cln_haplo("./.:0")
+#' cln_haplo("4/2:34,24")
+#' cln_haplo("2/2:71")
+#' cln_haplo("4/2:2,1")
+#' cln_haplo("2/2:4")
+cln_haplo <- function(hap, read_length = 5, missing = NA) {
+  hap <- trimws(hap)
+  if(hap == "./.:0")
+    return(missing)
+  # Split haplotypes and read count
+  hap_arr <- unlist(strsplit(hap, ":"))
+  # Extract haplotypes
+  hap_names <- unlist(strsplit(hap_arr[1], "/"))
+  # ## Compare if variance = 0 (Homozygous)
+  # return(ifelse(var(hap_names) == 0, genotypes[1], genotypes[2]))
+  
+  # Extract read count
+  tryCatch({
+    rl <- unlist(strsplit(hap_arr[2], ",")) %>%
+      purrr::map_dbl(as.numeric) %>%
+      sum(na.rm = TRUE)
+    if (rl < read_length)
+      return(missing)
+  }, error = function(e) {
+    stop(e)
+  })
+  return(hap)
 }
