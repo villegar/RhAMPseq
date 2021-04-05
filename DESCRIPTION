@@ -17,6 +17,7 @@ Imports:
     doParallel,
     foreach,
     parallel,
+    readr,
     readxl,
     seqinr,
     tictoc
