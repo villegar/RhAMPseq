@@ -108,7 +108,7 @@ read_excel_col <- function(filename, columns) {
 }
 
 #' Get genotypes from haplotypes
-#'
+#' @importFrom stats var
 #' @param hap haplotypes data with format: X/Y:n,m
 #' @param genotypes genotypes to assign based on homozygosity, 
 #' c(Homozygous, Heterozygous, NULL); NULL haplotypes [./.:0]
