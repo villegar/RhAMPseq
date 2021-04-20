@@ -11,6 +11,7 @@ check_libs <- function() {
             "foreach",
             "hexSticker",
             "knitr", 
+            "magrittr",
             "parallel",
             "readxl", 
             "seqinr",
