@@ -16,11 +16,16 @@ RoxygenNote: 7.1.1
 Imports:
     doParallel,
     foreach,
+    magrittr,
     parallel,
+    purrr,
     readr,
     readxl,
     seqinr,
-    tictoc
+    stringr,
+    tibble,
+    tictoc,
+    tidyr
 Suggests:
     badger,
     hexSticker,
