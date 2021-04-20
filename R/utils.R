@@ -176,6 +176,22 @@ cln_haplo <- function(hap, read_length = 5, missing = NA) {
   return(hap)
 }
 
+#' Split haplotypes
+#' 
+#' Split haplotypes into three components: \code{A/B,len}.
+#' 
+#' @importFrom magrittr `%>%`
+#' @param hap haplotype data with the format: \code{X/Y:n,m}.
+#' 
+#' @return A tibble with three columns: \code{A}, \code{B}, and \code{len}.
+#' @export
+#'
+#' @examples
+#' split_haplo("./.:0")
+#' split_haplo("4/2:34,24")
+#' split_haplo("2/2:71")
+#' split_haplo("4/2:2,1")
+#' split_haplo("2/2:4")
 #' @export
 split_haplo <- function(hap) {
   if (is.na(hap))
