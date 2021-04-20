@@ -175,3 +175,24 @@ cln_haplo <- function(hap, read_length = 5, missing = NA) {
   })
   return(hap)
 }
+
+#' @export
+split_haplo <- function(hap) {
+  if (is.na(hap))
+    return(tibble::tibble(A = NA, B = NA, len = 0))
+  tryCatch({
+    spl <- hap %>%
+      stringr::str_extract("\\d{1,2}/\\d{1,2}") %>%
+      stringr::str_split_fixed("/", n = 2) %>%
+      purrr::map_dbl(as.numeric)
+    len <- hap %>%
+      stringr::str_extract(":\\d{1,4}[,\\d{1,4}]*$") %>%
+      stringr::str_remove(":") %>%
+      stringr::str_split_fixed(",", n = 2) %>%
+      purrr::map_dbl(as.numeric) %>%
+      sum(na.rm = TRUE)
+  }, error = function(e) {
+    stop(e)
+  })
+  return(tibble::tibble(A = spl[1], B = spl[2], len = len))
+}
